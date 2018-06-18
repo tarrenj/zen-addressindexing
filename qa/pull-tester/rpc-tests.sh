@@ -39,6 +39,12 @@ testScripts=(
     'key_import_export.py'
     'nodehandling.py'
     'reindex.py'
+
+# ZEN_ADDRESS_INDEXING_START
+    'addressindex.py'
+    'timestampindex.py'
+    'spentindex.py'
+# ZEN_ADDRESS_INDEXING_END
     'decodescript.py'
     'disablewallet.py'
     'zcjoinsplit.py'

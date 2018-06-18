@@ -564,6 +564,10 @@ public:
      */
     unsigned int GetSigOpCount(const CScript& scriptSig) const;
 
+// ZEN_ADDRESS_INDEXING_START
+    bool IsPayToPublicKeyHash() const;
+// ZEN_ADDRESS_INDEXING_END
+
     bool IsPayToScriptHash() const;
 
     /** Called by IsStandardTx and P2SH/BIP62 VerifyScript (which makes it consensus-critical). */

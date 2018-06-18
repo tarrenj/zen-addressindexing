@@ -289,6 +289,25 @@ CTxDestination CBitcoinAddress::Get() const
         return CNoDestination();
 }
 
+// ZEN_ADDRESS_INDEXING_START
+bool CBitcoinAddress::GetIndexKey(uint160& hashBytes, int& type) const
+{
+    if (!IsValid()) {
+        return false;
+    } else if (vchVersion == Params().Base58Prefix(CChainParams::PUBKEY_ADDRESS)) {
+        memcpy(&hashBytes, &vchData[0], 20);
+        type = 1;
+        return true;
+    } else if (vchVersion == Params().Base58Prefix(CChainParams::SCRIPT_ADDRESS)) {
+        memcpy(&hashBytes, &vchData[0], 20);
+        type = 2;
+        return true;
+    }
+
+    return false;
+}
+// ZEN_ADDRESS_INDEXING_END
+
 bool CBitcoinAddress::GetKeyID(CKeyID& keyID) const
 {
 // ZEN_MOD_START

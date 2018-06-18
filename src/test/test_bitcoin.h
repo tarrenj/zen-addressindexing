@@ -1,6 +1,9 @@
 #ifndef BITCOIN_TEST_TEST_BITCOIN_H
 #define BITCOIN_TEST_TEST_BITCOIN_H
 
+// ZEN_ADDRESS_INDEXING_START
+#include "chainparamsbase.h"
+// ZEN_ADDRESS_INDEXING_END
 #include "pubkey.h"
 #include "txdb.h"
 

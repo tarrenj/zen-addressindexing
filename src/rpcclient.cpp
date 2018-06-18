@@ -96,6 +96,17 @@ static const CRPCConvertParam vRPCConvertParams[] =
     { "prioritisetransaction", 2 },
     { "setban", 2 },
     { "setban", 3 },
+// ZEN_ADDRESS_INDEXING_START
+    { "getblockhashes", 0 },
+    { "getblockhashes", 1 },
+    { "getblockhashes", 2 },
+    { "getspentinfo", 0},
+    { "getaddresstxids", 0},
+    { "getaddressbalance", 0},
+    { "getaddressdeltas", 0},
+    { "getaddressutxos", 0},
+    { "getaddressmempool", 0},
+// ZEN_ADDRESS_INDEXING_END
     { "zcrawjoinsplit", 1 },
     { "zcrawjoinsplit", 2 },
     { "zcrawjoinsplit", 3 },

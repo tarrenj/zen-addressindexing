@@ -17,6 +17,19 @@
 class CBlockFileInfo;
 class CBlockIndex;
 struct CDiskTxPos;
+// ZEN_ADDRESS_INDEXING_START
+struct CAddressUnspentKey;
+struct CAddressUnspentValue;
+struct CAddressIndexKey;
+struct CAddressIndexIteratorKey;
+struct CAddressIndexIteratorHeightKey;
+struct CTimestampIndexKey;
+struct CTimestampIndexIteratorKey;
+struct CTimestampBlockIndexKey;
+struct CTimestampBlockIndexValue;
+struct CSpentIndexKey;
+struct CSpentIndexValue;
+// ZEN_ADDRESS_INDEXING_END
 class uint256;
 
 //! -dbcache default (MiB)
@@ -53,7 +66,9 @@ public:
 class CBlockTreeDB : public CLevelDBWrapper
 {
 public:
-    CBlockTreeDB(size_t nCacheSize, bool fMemory = false, bool fWipe = false);
+// ZEN_ADDRESS_INDEXING_START
+    CBlockTreeDB(size_t nCacheSize, bool fMemory = false, bool fWipe = false, bool compression = true, int maxOpenFiles = 1000);
+// ZEN_ADDRESS_INDEXING_END
 private:
     CBlockTreeDB(const CBlockTreeDB&);
     void operator=(const CBlockTreeDB&);
@@ -65,9 +80,26 @@ public:
     bool ReadReindexing(bool &fReindex);
     bool ReadTxIndex(const uint256 &txid, CDiskTxPos &pos);
     bool WriteTxIndex(const std::vector<std::pair<uint256, CDiskTxPos> > &list);
+// ZEN_ADDRESS_INDEXING_START
+    bool ReadSpentIndex(CSpentIndexKey &key, CSpentIndexValue &value);
+    bool UpdateSpentIndex(const std::vector<std::pair<CSpentIndexKey, CSpentIndexValue> >&vect);
+    bool UpdateAddressUnspentIndex(const std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue > >&vect);
+    bool ReadAddressUnspentIndex(uint160 addressHash, int type,
+                                 std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue> > &vect);
+    bool WriteAddressIndex(const std::vector<std::pair<CAddressIndexKey, CAmount> > &vect);
+    bool EraseAddressIndex(const std::vector<std::pair<CAddressIndexKey, CAmount> > &vect);
+    bool ReadAddressIndex(uint160 addressHash, int type,
+                          std::vector<std::pair<CAddressIndexKey, CAmount> > &addressIndex,
+                          int start = 0, int end = 0);
+    bool WriteTimestampIndex(const CTimestampIndexKey &timestampIndex);
+    bool ReadTimestampIndex(const unsigned int &high, const unsigned int &low, const bool fActiveOnly, std::vector<std::pair<uint256, unsigned int> > &vect);
+    bool WriteTimestampBlockIndex(const CTimestampBlockIndexKey &blockhashIndex, const CTimestampBlockIndexValue &logicalts);
+    bool ReadTimestampBlockIndex(const uint256 &hash, unsigned int &logicalTS);
     bool WriteFlag(const std::string &name, bool fValue);
     bool ReadFlag(const std::string &name, bool &fValue);
     bool LoadBlockIndexGuts();
+    bool blockOnchainActive(const uint256 &hash);
+// ZEN_ADDRESS_INDEXING_END
 };
 
 #endif // BITCOIN_TXDB_H

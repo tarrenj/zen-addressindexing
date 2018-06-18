@@ -284,6 +284,10 @@ static const CRPCCommand vRPCCommands[] =
     { "blockchain",         "getbestblockhash",       &getbestblockhash,       true  },
     { "blockchain",         "getblockcount",          &getblockcount,          true  },
     { "blockchain",         "getblock",               &getblock,               true  },
+// ZEN_ADDRESS_INDEXING_START
+    { "blockchain",         "getblockdeltas",         &getblockdeltas,         false },
+    { "blockchain",         "getblockhashes",         &getblockhashes,         true  },
+// ZEN_ADDRESS_INDEXING_END
     { "blockchain",         "getblockhash",           &getblockhash,           true  },
     { "blockchain",         "getblockheader",         &getblockheader,         true  },
     { "blockchain",         "getchaintips",           &getchaintips,           true  },
@@ -295,6 +299,9 @@ static const CRPCCommand vRPCCommands[] =
     { "blockchain",         "verifytxoutproof",       &verifytxoutproof,       true  },
     { "blockchain",         "gettxoutsetinfo",        &gettxoutsetinfo,        true  },
     { "blockchain",         "verifychain",            &verifychain,            true  },
+// ZEN_ADDRESS_INDEXING_START
+    { "blockchain",         "getspentinfo",           &getspentinfo,           false },
+// ZEN_ADDRESS_INDEXING_END
 
     /* Mining */
     { "mining",             "getblocktemplate",       &getblocktemplate,       true  },
@@ -323,6 +330,15 @@ static const CRPCCommand vRPCCommands[] =
 #ifdef ENABLE_WALLET
     { "rawtransactions",    "fundrawtransaction",     &fundrawtransaction,     false },
 #endif
+
+// ZEN_ADDRESS_INDEXING_START
+    /* Address index */
+    { "addressindex",       "getaddressmempool",      &getaddressmempool,      true  },
+    { "addressindex",       "getaddressutxos",        &getaddressutxos,        false },
+    { "addressindex",       "getaddressdeltas",       &getaddressdeltas,       false },
+    { "addressindex",       "getaddresstxids",        &getaddresstxids,        false },
+    { "addressindex",       "getaddressbalance",      &getaddressbalance,      false },
+// ZEN_ADDRESS_INDEXING_END
 
     /* Utility functions */
     { "util",               "createmultisig",         &createmultisig,         true  },

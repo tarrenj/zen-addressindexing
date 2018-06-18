@@ -163,6 +163,9 @@ public:
 
     CTxDestination Get() const;
     bool GetKeyID(CKeyID &keyID) const;
+// ZEN_ADDRESS_INDEXING_START
+    bool GetIndexKey(uint160& hashBytes, int& type) const;
+// ZEN_ADDRESS_INDEXING_END
     bool IsScript() const;
 // ZEN_MOD_START
     bool IsPubKey() const;
